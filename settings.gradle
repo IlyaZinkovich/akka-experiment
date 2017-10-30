@@ -1,0 +1,4 @@
+rootProject.name = 'distributed'
+include 'front'
+include 'back'
+include 'back-api'
