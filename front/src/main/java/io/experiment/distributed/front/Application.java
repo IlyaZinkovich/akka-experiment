@@ -1,6 +1,6 @@
 package io.experiment.distributed.front;
 
-import akka.actor.ActorSelection;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import io.experiment.distributed.backend.api.ComputationResult;
 import io.experiment.distributed.backend.api.Compute;
@@ -13,8 +13,7 @@ public class Application {
 
     public static void main(String[] args) throws InterruptedException {
         ActorSystem actorSystem = ActorSystem.create("app-system");
-        ActorSelection computationSupervisor =
-                actorSystem.actorSelection("akka.tcp://computation-system@127.0.0.1:2552/user/supervisor");
+        final ActorRef computationSupervisor = actorSystem.actorOf(ComputationSupervisor.props(), "computation-supervisor");
         while (true) {
             final CompletableFuture<Object> computationResult =
                     ask(computationSupervisor, new Compute("input"), 10).toCompletableFuture();

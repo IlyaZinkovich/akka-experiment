@@ -11,7 +11,7 @@ public class ComputationActor extends AbstractActor {
     private final LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
     static Props props() {
-        return Props.create(ComputationActor.class, () -> new ComputationActor());
+        return Props.create(ComputationActor.class, ComputationActor::new);
     }
 
     @Override
